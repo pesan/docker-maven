@@ -1,0 +1,4 @@
+#!/bin/bash -e
+REPODIR="$(readlink -m ~)/.m2/repository"
+[ -d "$REPODIR" ] || mkdir -p "$REPODIR"
+docker run -i --user="$(id -u):$(id -g)" --rm -t -v "$(pwd):/src" -v "$REPODIR:/repo" tools/maven:3.2.5 -Dmaven.repo.local="/repo" "$@"
